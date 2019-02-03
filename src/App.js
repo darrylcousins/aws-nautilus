@@ -15,6 +15,10 @@ import faGithub from '@fortawesome/fontawesome-free-brands/faGithub'
 
 import Index from './components/index'
 import GlossaryEntryList from './components/glossary-entry-list'
+import GlossaryEntryDetail from './components/glossary-entry-detail'
+import GlossaryEntryDelete from './components/glossary-entry-delete'
+import GlossaryEntryUpdate from './components/glossary-entry-update'
+import GlossaryEntryCreate from './components/glossary-entry-create'
 
 import './tachyons.min.css'
 import './App.css'
@@ -54,6 +58,12 @@ class App extends Component {
                     <section className="mw6 mw7-ns center pa3 ph5-ns">
                       <Route exact path="/" component={ Index } />
                       <Route exact path="/glossary" component={ GlossaryEntryList } />
+                      <Route exact path="/glossary/create" component={ GlossaryEntryCreate } />
+                      <Switch>
+                        <Route path="/glossary/:id/:title/delete" component={ GlossaryEntryDelete } />
+                        <Route path="/glossary/:id/:title/edit" component={ GlossaryEntryUpdate } />
+                        <Route path="/glossary/:id/:title" component={ GlossaryEntryDetail } />
+                      </Switch>
                     </section>
                   </div>
                 </div>

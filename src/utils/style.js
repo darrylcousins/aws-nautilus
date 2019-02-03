@@ -1,5 +1,5 @@
 /**
- * @file Provides a `Date` constants
+ * @file Not much here
  * @author Darryl Cousins <darryljcousins@gmail.com>
  */
 export const ListStyle = {

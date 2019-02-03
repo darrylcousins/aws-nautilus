@@ -17,27 +17,7 @@ import Error from './error'
 import * as queries from '../graphql/queries'
 
 import { Connect } from "aws-amplify-react"
-
-// TODO Global amplify configure!!
-import Amplify, { graphqlOperation } from "aws-amplify"
-import aws_config from "./../aws-exports"
-
-Amplify.configure(aws_config);
-
-// Configure the GraphQL endpoint and authorization api key
-Amplify.configure({
-  API: {
-    graphql_endpoint: 'https://vtzt5nufwzdi5pppcbditlg63y.appsync-api.us-east-1.amazonaws.com/graphql',
-    graphql_headers: async () => ({
-      'x-api-key': 'da2-vixpv4m6cfg3visusqwskpmqfa'
-    })
-  }
-})
-
-/**
- * Best way I could figure out to nest the local state account query for
- * account to use in entry query
- */
+import { graphqlOperation } from "aws-amplify"
 
 export default class GlossaryEntryList extends React.Component {
 
@@ -80,7 +60,7 @@ export default class GlossaryEntryList extends React.Component {
         <Fragment key={ idx }>
           <Link
             className="link db dim mb1"
-            to={ `/glossary/${ entry.id }` }>
+            to={ `/glossary/${ entry.id }/${ entry.title }` }>
             <div className="pa1 grow">
               <h3 className="mv0 navy">
                 { entry.title }
@@ -88,16 +68,20 @@ export default class GlossaryEntryList extends React.Component {
               <div
                 className="near-black mb0"
                 dangerouslySetInnerHTML={{ __html: marked(entry.byline) }} />
+              <div className="small-caps dark-gray">
+                <span>last modified: </span>
+                <span className="f6">{ new Date(entry.mtime).toLocaleString() }</span>
+              </div>
             </div>
           </Link>
           <Link
             className="f6 f5-ns b db link dim fr"
-            to={ `/glossary/${ entry.id }/edit` }>
+            to={ `/glossary/${ entry.id }/${ entry.title }/edit` }>
             <FontAwesomeIcon icon={ faEdit } color="navy" />
           </Link>
           <Link
             className="mr2 f6 f5-ns b db link dim fr"
-            to={ `/glossary/${ entry.id }/delete` }>
+            to={ `/glossary/${ entry.id }/${ entry.title }/delete` }>
             <FontAwesomeIcon icon={ faTrashAlt } color="navy" />
           </Link>
           <div className="cf mb2"></div>
@@ -115,7 +99,7 @@ export default class GlossaryEntryList extends React.Component {
         <h1 className="navy">Glossary</h1>
         <label className="absolute pa0 ma0 o-0" htmlFor="searchTerm">Search term</label>
         <div className="relative mv3 dt dib w-100">
-          <div className="bg-light-gray b--black-20 bb bt bl pa2 br2 br--left dtc dib">
+          <div className="b--black-20 bb bt bl pa2 br2 br--left dtc dib">
             <FontAwesomeIcon icon={ faSearch } />
           </div>
           <input

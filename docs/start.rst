@@ -5,6 +5,11 @@ Creating and updating the schema. From the `AppSync Console`_ the schema can be
 built for the application which will also then generate the DynamoDB_ tables
 necessary to store the data.
 
+This project did begin life as a Couchbase/ExpressJS/Apollo/React application
+stack.  However setting up Couchbase on AWS requires a costly EC2 instance. So
+I moved to using DynamoDB_, then I swapped out Apollo in favour of Amplify_
+which gives me a set of tools to update the schema automatically.
+
 Codegen
 =======
 
@@ -18,6 +23,8 @@ The simple steps to get started are::
 
 The files `src/aws-exports.js` and `src/graphql/*.js` have been created.
 
+The schema can be updated at the `AppSync Console`_.
+
 After any updates to the API's schema then the client code can be regenerated
 with that final command::
 
@@ -25,3 +32,4 @@ with that final command::
 
 .. _`AppSync Console`: http://console.amazon.com/appsync
 .. _DynamoDB: http://aws.amazon.com/dynamodb
+.. _Amplify: https://aws-amplify.github.io
