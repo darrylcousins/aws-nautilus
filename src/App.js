@@ -9,6 +9,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import faGithub from '@fortawesome/fontawesome-free-brands/faGithub'
@@ -20,6 +21,7 @@ import GlossaryEntryDelete from './components/glossary-entry-delete'
 import GlossaryEntryUpdate from './components/glossary-entry-update'
 import GlossaryEntryCreate from './components/glossary-entry-create'
 
+import 'react-toastify/dist/ReactToastify.min.css'
 import './tachyons.min.css'
 import './App.css'
 
@@ -28,6 +30,9 @@ class App extends Component {
     return (
       <Router>
         <div className="w-100 sans-serif">
+          <ToastContainer
+            autoClose={ 2000 }
+          />
           <div className="center w85">
             <header>
               <div className="w-100 pa2 ph2-ns pt3-ns pb1 bg-white">

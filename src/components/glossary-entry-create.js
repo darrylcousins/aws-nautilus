@@ -5,10 +5,12 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { Form } from 'react-form'
+import { toast } from 'react-toastify'
 import UUID from 'uuid'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import faList from '@fortawesome/fontawesome-free-solid/faList'
+import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
 
 import Input from './form/input.js'
 import TextArea from './form/textarea.js'
@@ -53,18 +55,28 @@ export default class GlossaryEntryCreate extends React.Component {
 
   async onSubmit(data, e, formApi) {
 
-    var tzoffset = (new Date()).getTimezoneOffset() * 60000
-    const now = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
+    const now = new Date()
 
     data.id = UUID.v4()
     data.ctime = now
     data.mtime = now
 
+    const Toast = ({ entry }) => (
+        <Fragment>
+          <span>{ entry.title }</span> created. <FontAwesomeIcon icon={ faCheck } />
+        </Fragment>
+    )
+
     try {
-      const Entry = await API.graphql(graphqlOperation(mutations.createGlossaryEntry, {input: data}))
-      console.log("Result: ", Entry)
+      const result = await API.graphql(graphqlOperation(mutations.createGlossaryEntry, {input: data}))
+      const entry = result.data.createGlossaryEntry
+      console.log("Result: ", entry)
+      toast.success(<Toast entry={ entry } />, {
+        onClose: () =>  this.props.history.push(`/glossary/`)
+      })
     } catch (error) {
-      console.log("caught error: ", error)
+      console.log("Caught error: ", error)
+      toast.error("Update failed")
     }
   }
 
