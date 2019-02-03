@@ -20,7 +20,7 @@ import * as queries from '../graphql/queries'
 import { Connect } from "aws-amplify-react"
 import { graphqlOperation } from "aws-amplify"
 
-export default class GlossaryEntryList extends React.Component {
+export default class RecipeList extends React.Component {
 
   constructor(props) {
     super(props)
@@ -61,7 +61,7 @@ export default class GlossaryEntryList extends React.Component {
         <Fragment key={ idx }>
           <Link
             className="link db dim mb1"
-            to={ `/glossary/${ entry.id }/${ entry.title }` }>
+            to={ `/recipes/${ entry.id }` }>
             <div className="pa1 grow">
               <h3 className="mv0 navy">
                 { entry.title }
@@ -77,12 +77,12 @@ export default class GlossaryEntryList extends React.Component {
           </Link>
           <Link
             className="f6 f5-ns b db link dim fr"
-            to={ `/glossary/${ entry.id }/${ entry.title }/edit` }>
+            to={ `/recipes/${ entry.id }/edit` }>
             <FontAwesomeIcon icon={ faEdit } color="navy" />
           </Link>
           <Link
             className="mr2 f6 f5-ns b db link dim fr"
-            to={ `/glossary/${ entry.id }/${ entry.title }/delete` }>
+            to={ `/recipes/${ entry.id }/delete` }>
             <FontAwesomeIcon icon={ faTrashAlt } color="navy" />
           </Link>
           <div className="cf mb2"></div>
@@ -94,10 +94,10 @@ export default class GlossaryEntryList extends React.Component {
       <Fragment>
         <Link
           className="f6 f5-ns b db link dim orange fr"
-          to={ `/glossary/create` }>
+          to={ `/recipes/create` }>
           <FontAwesomeIcon icon={ faPlus } color="red" />
         </Link>
-        <h1 className="navy">Glossary</h1>
+        <h1 className="navy">Recipes</h1>
         <label className="absolute pa0 ma0 o-0" htmlFor="searchTerm">Search term</label>
         <div className="relative mv2 dt dib w-100">
           <div className="pointer w3 bg-light-gray b--black-20 ba br-0 pa2 br2 br--left dtc dib tc">
@@ -122,13 +122,13 @@ export default class GlossaryEntryList extends React.Component {
           </div>
         </div>
         <Connect
-          query={ graphqlOperation(queries.listGlossaryEntries, variables) }
+          query={ graphqlOperation(queries.listRecipes, variables) }
           >
           {({ data, loading, errors }) => {
             if (loading) return <Loading />
             if (errors.length) return <Error data={ errors } />
             return (
-              <SummaryList items={ data.listGlossaryEntries.items } />
+              <SummaryList items={ data.listRecipes.items } />
             )
           }}
         </Connect>

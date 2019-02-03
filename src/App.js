@@ -13,8 +13,13 @@ import { ToastContainer } from 'react-toastify'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import faGithub from '@fortawesome/fontawesome-free-brands/faGithub'
+import faList from '@fortawesome/fontawesome-free-solid/faList'
 
 import Index from './components/index'
+import RecipeList from './components/recipe-list'
+import RecipeCreate from './components/recipe-create'
+import RecipeDetail from './components/recipe-detail'
+import RecipeUpdate from './components/recipe-update'
 import GlossaryEntryList from './components/glossary-entry-list'
 import GlossaryEntryDetail from './components/glossary-entry-detail'
 import GlossaryEntryDelete from './components/glossary-entry-delete'
@@ -46,8 +51,20 @@ class App extends Component {
                     </Link>
                   </div>
                   <nav className="db dtc-ns v-mid w-100 tl tr-ns mt2 mt0-ns">
+                    <a title="Recipes"
+                      href="/recipes/"
+                      className="link dim f6 fw6 link navy mr2 mr3-m mr4-l dib pointer">
+                      <FontAwesomeIcon icon={ faList } color="navy" />
+                      &nbsp;Recipes
+                    </a>
+                    <a title="Glossary"
+                      href="/glossary/"
+                      className="link dim f6 fw6 link navy mr2 mr3-m mr4-l dib pointer">
+                      <FontAwesomeIcon icon={ faList } color="navy" />
+                      &nbsp;Glossary
+                    </a>
                     <a title="Nautilus on GitHub"
-                      href="https://github.com/darrylcousins/nautilus-client"
+                      href="https://github.com/darrylcousins/aws-nautilus"
                       className="link dim f6 fw6 link navy mr2 mr3-m mr4-l dib pointer">
                       <FontAwesomeIcon icon={ faGithub } color="navy" />
                       &nbsp;GitHub
@@ -62,9 +79,13 @@ class App extends Component {
                   <div className="ph1 pv1 background-gray tl">
                     <section className="mw6 mw7-ns center pa3 ph5-ns">
                       <Route exact path="/" component={ Index } />
+                      <Route exact path="/recipes" component={ RecipeList } />
                       <Route exact path="/glossary" component={ GlossaryEntryList } />
                       <Route exact path="/glossary/create" component={ GlossaryEntryCreate } />
                       <Switch>
+                        <Route path="/recipes/:id/edit" component={ RecipeUpdate } />
+                        <Route exact path="/recipes/create" component={ RecipeCreate } />
+                        <Route path="/recipes/:id" component={ RecipeDetail } />
                         <Route path="/glossary/:id/:title/delete" component={ GlossaryEntryDelete } />
                         <Route path="/glossary/:id/:title/edit" component={ GlossaryEntryUpdate } />
                         <Route path="/glossary/:id/:title" component={ GlossaryEntryDetail } />

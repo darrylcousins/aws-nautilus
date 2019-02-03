@@ -25,7 +25,7 @@ import * as mutations from '../graphql/mutations'
 import { Connect } from "aws-amplify-react"
 import { API, graphqlOperation } from "aws-amplify"
 
-export default class GlossaryEntryDelete extends React.Component {
+export default class RecipeDelete extends React.Component {
 
   constructor(props) {
     super(props)
@@ -41,11 +41,11 @@ export default class GlossaryEntryDelete extends React.Component {
     )
 
     try {
-      const result = await API.graphql(graphqlOperation(mutations.deleteGlossaryEntry, {input: data}))
-      const entry = result.data.deleteGlossaryEntry
+      const result = await API.graphql(graphqlOperation(mutations.deleteRecipe, {input: data}))
+      const entry = result.data.deleteRecipe
       console.log("Result: ", entry)
       toast.success(<Toast entry={ entry } />, {
-        onClose: () =>  this.props.history.push(`/glossary/`)
+        onClose: () =>  this.props.history.push(`/recipes/`)
       })
     } catch (error) {
       console.log("Caught error: ", error)
@@ -55,12 +55,11 @@ export default class GlossaryEntryDelete extends React.Component {
 
   render() {
     const vars = {
-      id: this.props.match.params.id,
-      title: this.props.match.params.title
+      id: this.props.match.params.id
     }
     return (
       <Connect
-        query={ graphqlOperation(queries.getGlossaryEntry, vars) }
+        query={ graphqlOperation(queries.getRecipe, vars) }
         variables={ vars }>
         {({ data, loading, errors }) => {
           if (loading) return <Loading />
@@ -73,33 +72,32 @@ export default class GlossaryEntryDelete extends React.Component {
                   <li className="dib mr2">
                     <Link
                       className="f6 f5-ns b db link dim"
-                      to={ `/glossary/` }>
+                      to={ `/recipes/` }>
                       <FontAwesomeIcon icon={ faList } color="navy" />
                     </Link>
                   </li>
                   <li className="dib mr2">
                     <Link
                       className="f6 f5-ns b db link dim"
-                      to={ `/glossary/${ this.props.match.params.id }/${ this.props.match.params.title }` }>
+                      to={ `/recipes/${ this.props.match.params.id }` }>
                       <FontAwesomeIcon icon={ faEye } color="navy" />
                     </Link>
                   </li>
                   <li className="dib mr2">
                     <Link
                       className="f6 f5-ns b db link dim"
-                      to={ `/glossary/create` }>
+                      to={ `/recipes/create` }>
                       <FontAwesomeIcon icon={ faPlus } color="red" />
                     </Link>
                   </li>
                 </ul>
               </div>
-              <h1 className="navy">Delete { data.getGlossaryEntry.title }</h1>
+              <h1 className="navy">Delete { data.getRecipe.title }</h1>
               <Form onSubmit={ this.onSubmit }
                 validate={ this.validate }
                 defaultValues={
                   {
-                    id: this.props.match.params.id,
-                    title: data.getGlossaryEntry.title
+                    id: this.props.match.params.id
                   }
                 }
                   >
@@ -112,10 +110,6 @@ export default class GlossaryEntryDelete extends React.Component {
                     <Text
                       type="hidden"
                       name ="id"
-                    />
-                    <Text
-                      type="hidden"
-                      name = "title"
                     />
                     <div className="fr">
                       <button
