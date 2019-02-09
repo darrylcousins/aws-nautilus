@@ -18,13 +18,22 @@ Amplify.configure(aws_config);
 // Configure the GraphQL endpoint and authorization api key
 Amplify.configure({
   API: {
-    graphql_endpoint: 'https://vtzt5nufwzdi5pppcbditlg63y.appsync-api.us-east-1.amazonaws.com/graphql',
+    graphql_endpoint: aws_config['aws_appsync_graphqlEndpoint'],
     graphql_headers: async () => ({
-      'x-api-key': 'da2-vixpv4m6cfg3visusqwskpmqfa'
+      'x-api-key': aws_config['aws_appsync_apiKey']
     })
   }
 })
-
+// Ex hard-coded
+//Amplify.configure({
+//  API: {
+//    graphql_endpoint: 'https://vtzt5nufwzdi5pppcbditlg63y.appsync-api.us-east-1.amazonaws.com/graphql',
+//    graphql_headers: async () => ({
+//      'x-api-key': 'da2-vixpv4m6cfg3visusqwskpmqfa'
+//    })
+//  }
+//})
+//
 ReactDOM.render(<App />, document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change

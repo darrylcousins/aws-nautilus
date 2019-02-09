@@ -60,32 +60,36 @@ export default class RecipeList extends React.Component {
       items.map((entry, idx) => (
         <Fragment key={ idx }>
           <Link
-            className="link db dim mb1"
+            className="link db dim mb1 mt0"
             to={ `/recipes/${ entry.id }` }>
             <div className="pa1 grow">
-              <h3 className="mv0 navy">
+              <h3 className="navy">
                 { entry.title }
               </h3>
               <div
                 className="near-black mb0"
                 dangerouslySetInnerHTML={{ __html: marked(entry.byline) }} />
-              <div className="small-caps dark-gray">
-                <span>last modified: </span>
-                <span className="f6">{ new Date(entry.mtime).toLocaleString() }</span>
-              </div>
             </div>
           </Link>
-          <Link
-            className="f6 f5-ns b db link dim fr"
-            to={ `/recipes/${ entry.id }/edit` }>
-            <FontAwesomeIcon icon={ faEdit } color="navy" />
-          </Link>
-          <Link
-            className="mr2 f6 f5-ns b db link dim fr"
-            to={ `/recipes/${ entry.id }/delete` }>
-            <FontAwesomeIcon icon={ faTrashAlt } color="navy" />
-          </Link>
-          <div className="cf mb2"></div>
+          <div className="w-100 bb">
+            <div className="fl small-caps dark-gray">
+              <span>last modified: </span>
+              <span className="f6">{ new Date(entry.mtime).toLocaleString() }</span>
+            </div>
+            <div className="fr">
+              <Link
+                className="ma1 f6 f5-ns b db link dim dib"
+                to={ `/recipes/${ entry.id }/edit` }>
+                <FontAwesomeIcon icon={ faEdit } color="navy" />
+              </Link>
+              <Link
+                className="ma1 f6 f5-ns b db link dim dib"
+                to={ `/recipes/${ entry.id }/delete` }>
+                <FontAwesomeIcon icon={ faTrashAlt } color="navy" />
+              </Link>
+            </div>
+            <div className="cf" />
+          </div>
         </Fragment>
       ))
     )
@@ -99,7 +103,7 @@ export default class RecipeList extends React.Component {
         </Link>
         <h1 className="navy">Recipes</h1>
         <label className="absolute pa0 ma0 o-0" htmlFor="searchTerm">Search term</label>
-        <div className="relative mv2 dt dib w-100">
+        <div className="relative mt2 mb3 dt dib w-100">
           <div className="pointer w3 bg-light-gray b--black-20 ba br-0 pa2 br2 br--left dtc dib tc">
             <FontAwesomeIcon icon={ faSearch } />
           </div>
