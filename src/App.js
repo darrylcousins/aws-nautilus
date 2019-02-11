@@ -10,6 +10,7 @@ import {
   Switch
 } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import { withAuthenticator } from 'aws-amplify-react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import faGithub from '@fortawesome/fontawesome-free-brands/faGithub'
@@ -102,4 +103,5 @@ class App extends Component {
   }
 }
 
-export default App
+//export default App
+export default withAuthenticator(App, {includeGreetings: true});
